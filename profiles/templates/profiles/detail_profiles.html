@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {{ title }}
+        </title>
+    </head>
+
+    <body>
+        <h1>Username: {{ user.username }}</h1>
+        <h2>First name: {{user.first_name}}</h2>
+        <h2>Last name: {{user.last_name}}</h2>
+        <h4><p>Email: {{user.email}}</p>
+            <p>Quote: {{user.profile.quote}}</p>
+            <p>Birthday: {{user.profile.date_birth}}</p>
+            <p>Count points: {{user.point.number_points}}</p></h4>
+    </body>
+</html>
