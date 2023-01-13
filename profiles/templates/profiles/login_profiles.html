@@ -1,12 +1,33 @@
 {% extends 'profiles/base.html' %}
+{% load static %}
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        <div>{{ form.non_field_errors }}</div>
-        {% for f in form %}
-            <p><label>{{f.label}}: </label>{{ f }}</p>
-            <div>{{ f.errors }}</div>
-        {% endfor %}
-        <button type="submit">Войти</button>
-    </form>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+            <!-- Tabs Titles -->
+            <h2 class="active"> Sign In </h2>
+            <h2 class="inactive underlineHover">Sign Up </h2>
+
+            <!-- Icon
+            <div class="fadeIn first">
+                <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+            </div>
+            -->
+
+            <form method="post">
+                {% csrf_token %}
+                <div>{{ form.non_field_errors }}</div>
+                <p><label for="id_username">Username:</label>
+                    <input type="text" id="id_username" class="fadeIn second" name="username" placeholder="login" required></p>
+                <p><label for="id_password">Password:</label>
+                    <input type="text" name="password" id="id_password"   class="fadeIn third" placeholder="password" ></p>
+                <input type="submit" class="fadeIn fourth" value="Log In">
+            </form>
+
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+                <a class="underlineHover" href="#">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

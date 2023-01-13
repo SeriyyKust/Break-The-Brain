@@ -1,17 +1,27 @@
 {% extends 'profiles/base.html' %}
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        <div>{{ user_form.non_field_errors }}</div>
-        <div>{{ profile_form.non_field_errors }}</div>
-        {% for f in user_form %}
-            <p><label>{{ f.label }}: </label>{{ f }}</p>
-            <div>{{ f.errors }}</div>
-        {% endfor %}
-        {% for f in profile_form %}
-            <p><label>{{ f.label }}: </label>{{ f }}</p>
-            <div>{{ f.errors }}</div>
-        {% endfor %}
-        <input type="submit" value="Регистрация">
-    </form>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+            <!-- Tabs Titles -->
+            <h2 class="active"> Sign In </h2>
+            <h2 class="inactive underlineHover">Sign Up </h2>
+
+
+            <form method="post">
+                {% csrf_token %}
+                    <div>{{ user_form.non_field_errors }}</div>
+                    <div>{{ profile_form.non_field_errors }}</div>
+                    {% for f in user_form %}
+                        <p><label>{{ f.label }}: </label>{{ f }}</p>
+                        <div>{{ f.errors }}</div>
+                    {% endfor %}
+                    {% for f in profile_form %}
+                        <p><label>{{ f.label }}: </label>{{ f }}</p>
+                        <div>{{ f.errors }}</div>
+                    {% endfor %}
+                    <input type="submit" class="fadeIn fourth" value="Регистрация">
+            </form>
+        </div>
+    </div>
 {% endblock content %}

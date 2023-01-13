@@ -4,8 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-def get_name_photo_file(instance):
-    return 'photos/' + str(instance.id)
+def get_name_photo_file(instance, filename):
+    return "/".join(['photos', str(instance.user_id), filename])
 
 
 class Profile(models.Model):

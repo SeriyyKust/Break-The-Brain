@@ -1,10 +1,48 @@
 {% extends 'profiles/base.html' %}
+{% load static %}
 {% block content %}
-    <h1>Username: {{ user.username }}</h1>
-    <h2>First name: {{user.first_name}}</h2>
-    <h2>Last name: {{user.last_name}}</h2>
-    <h4><p>Email: {{user.email}}</p>
-        <p>Quote: {{user.profile.quote}}</p>
-        <p>Birthday: {{user.profile.date_birth}}</p>
-        <p>Count points: {{user.point.number_points}}</p></h4>
+    <section class="s-content--narrow s-content--no-padding-bottom">
+        <div class="row format-gallery">
+            <div class="s-content__header col-full">
+                <h1 class="s-content__header-title">
+                    {{ user.username }}
+                </h1>
+
+                <ul class="s-content__header-meta">
+                    {% if user.first_name %}
+                        <li class="cat">{{ user.first_name }}</li>
+                    {% endif %}
+                    {% if user.last_name %}
+                        <li class="cat">{{ user.last_name }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="s-content__media col-full">
+                <div class="s-content__slider slider">
+                    {% if user.profile.photo %}
+                        <img src="{{ user.profile.photo.url }}">
+                    {% else %}
+                        <img src="{% static 'profiles/images/anonym.jpg' %}">
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-full s-content__main">
+                {% if user.email %}
+                    <p class="lead">Email: {{ user.email }}</p>
+                {% endif %}
+                {% if user.profile.date_birth %}
+                    <p class="lead">Birthday: {{ user.profile.date_birth }}</p>
+                {% endif %}
+                {% if user.profile.quote %}
+                    <p class="lead">Цитата: </p>
+                    <blockquote><p>{{ user.profile.quote }}</p></blockquote>
+                {% endif %}
+                <hr>
+                <p class="lead">Баланс: {{user.point.number_points}}</p>
+
+            </div>
+        </div>
+    </section>
 {% endblock content %}

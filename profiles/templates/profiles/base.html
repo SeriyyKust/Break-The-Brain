@@ -1,21 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{{ title }}</title>
+
+        <!-- CSS------------------------->
+        <link rel="stylesheet" href="{% static 'profiles/css/main.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'profiles/css/base.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'profiles/css/login.css' %}" type="text/css">
     </head>
 
     <body>
+        <section class="s-pageheader">
 
-        {% block top_menu %}
-        <ul>
-            {% for m in menu %}
-                <li><a href="{% url m.url_name %}">{{ m.title }}</a></li>
-            {% endfor %}
-        </ul>
-        {% endblock top_menu %}
+            <header class="header">
+                <div class="header__content">
+                    <div class="header__logo">
+                        <a class="logo" href="{% url 'all_profiles' %}">
+                            <img src="{% static 'profiles/images/mainlogo.png' %}">
+                        </a>
+                    </div>
+                    {% block top_menu %}
+                    <ul class="header__nav">
+                        {% for m in menu %}
+                            <li><a href="{% url m.url_name %}">{{ m.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endblock top_menu %}
 
-        {% block content %}
-        {% endblock content %}
+                    {% block login %}
+                    <ul class="header__login">
+                        {% for l in login %}
+                            <li><a href="{% url l.url_name %}">{{ l.title }}</a> </li>
+                        {% endfor %}
+                    </ul>
+                    {% endblock login %}
+                </div>
+            </header>
+        </section>
+        <section class="s-content">
+            {% block content %}
+            {% endblock content %}
+        </section>
     </body>
 </html>
