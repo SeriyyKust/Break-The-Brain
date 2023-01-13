@@ -6,6 +6,7 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('profiles/', include('profiles.urls')),
+    path('quizzes/', include('quizzes.urls')),
 ]
 
 if settings.DEBUG:
