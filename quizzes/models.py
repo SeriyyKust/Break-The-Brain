@@ -46,7 +46,7 @@ class TextAnswer(BaseQuestion):
         verbose_name_plural = "Текстовые вопросы"
 
     def __str__(self):
-        return self.correct_answer.title[:10]
+        return self.correct_answer[:10]
 
 
 class ChoiceAnswer(BaseQuestion):
@@ -72,7 +72,7 @@ class Task(models.Model):
     photo = models.ImageField(upload_to="quizzes/tasks/%Y/%m/%d",null=True, blank=True, verbose_name="Фото задания")
     complexity = models.CharField(max_length=max(len(element[0]) for element in CATEGORY_COMPLEXITY_CHOICES),
                                   choices=CATEGORY_COMPLEXITY_CHOICES, default="easy", verbose_name="Сложность")
-    owner = models.OneToOneField(User, on_delete=models.PROTECT, verbose_name="Владелец")
+    owner = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="Владелец")
     question = models.ManyToManyField(BaseQuestion, verbose_name="Вопросы задания")
     slug = models.SlugField(max_length=64, unique=True, db_index=True, verbose_name="URL")
 

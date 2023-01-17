@@ -27,10 +27,13 @@ class ChoiceAnswerAdmin(admin.ModelAdmin):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("title", "photo", "complexity", "owner", "slug")
+    list_display = ("title", "photo", "complexity", "owner", "questions_task", "slug")
     list_display_links = ("title", )
     search_fields = ("title", )
     list_editable = ("photo", "complexity", "owner", "slug")
+
+    def questions_task(self, obj):
+        return "; ".join([question.title for question in obj.question.all()])
 
 
 admin.site.register(ElementQuestion, ElementQuestionAdmin)
