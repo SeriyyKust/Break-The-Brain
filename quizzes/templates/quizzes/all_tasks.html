@@ -1,0 +1,22 @@
+{% extends 'profiles/base.html' %}
+
+{% block content %}
+    {% for task in tasks %}
+        <article>
+            <div>
+                {{ task.title }}
+            </div>
+            {% if task.photo %}
+                <div>
+                    <p><img src="{{ task.photo.url }}"></p>
+                </div>
+            {% endif %}
+            <div>
+                {{ task.complexity }}
+            </div>
+            <div>
+                {{ task.owner }}
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
