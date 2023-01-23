@@ -18,4 +18,7 @@
     <div>
         {{ task.points }}
     </div>
+    <div>
+        <a href="{% url 'passing_task' task.slug%}">Решать!</a>
+    </div>
 {% endblock content %}

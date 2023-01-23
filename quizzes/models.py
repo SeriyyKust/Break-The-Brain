@@ -4,22 +4,41 @@ from django.urls import reverse
 from random import shuffle
 
 
-ANSWER_CATEGORIES = (("text", "text"), ("photo", "photo"))
+ANSWER_TEXT_CATEGORY = "text"
+ANSWER_PHOTO_CATEGORY = "photo"
+ANSWER_CATEGORIES = ((ANSWER_TEXT_CATEGORY, ANSWER_TEXT_CATEGORY), (ANSWER_PHOTO_CATEGORY, ANSWER_PHOTO_CATEGORY))
 TEXT_ANSWER_TEXT_MAX_LENGTH = 512
 PHOTO_ANSWER_TITLE_MAX_LENGTH = 32
-BASE_ELEMENT_QUESTION_CATEGORIES = ANSWER_CATEGORIES
+
+
+BASE_ELEMENT_QUESTION_TEXT_CATEGORY = "text"
+BASE_ELEMENT_QUESTION_PHOTO_CATEGORY = "photo"
+BASE_ELEMENT_QUESTION_CATEGORIES = ((BASE_ELEMENT_QUESTION_TEXT_CATEGORY, BASE_ELEMENT_QUESTION_TEXT_CATEGORY),
+                                    (BASE_ELEMENT_QUESTION_PHOTO_CATEGORY, BASE_ELEMENT_QUESTION_PHOTO_CATEGORY))
 BASE_ELEMENT_QUESTION_TEXT_MAX_LENGTH = 1024
 PHOTO_ELEMENT_QUESTION_TITLE_MAX_LENGTH = 32
+
+
+BASE_QUESTION_TEXT_CATEGORY = "text"
+BASE_QUESTION_CHOICE_CATEGORY = "choice"
 BASE_QUESTION_SLUG_MAX_LENGTH = 64
-BASE_QUESTION_CATEGORIES = (("text", "text"), ("choice", "choice"))
-TASK_CATEGORIES = (("easy", "easy"), ("medium", "medium"), ("hard", "hard"), ("hardcore", "hardcore"))
+BASE_QUESTION_CATEGORIES = ((BASE_QUESTION_TEXT_CATEGORY, BASE_QUESTION_TEXT_CATEGORY),
+                            (BASE_QUESTION_CHOICE_CATEGORY, BASE_QUESTION_CHOICE_CATEGORY))
+
+
+TASK_EASY_CATEGORY = "easy"
+TASK_MEDIUM_CATEGORY = "medium"
+TASK_HARD_CATEGORY = "hard"
+TASK_HARDCORE_CATEGORY = "hardcore"
+TASK_CATEGORIES = ((TASK_EASY_CATEGORY, TASK_EASY_CATEGORY), (TASK_MEDIUM_CATEGORY, TASK_MEDIUM_CATEGORY),
+                   (TASK_HARD_CATEGORY, TASK_HARD_CATEGORY), (TASK_HARDCORE_CATEGORY, TASK_HARDCORE_CATEGORY))
 TASK_TITLE_MAX_LENGTH = 64
 
 
 class Answer(models.Model):
     category = models.CharField(max_length=max(len(category[0]) for category in ANSWER_CATEGORIES),
                                 choices=ANSWER_CATEGORIES,
-                                default=ANSWER_CATEGORIES[0][0],
+                                default=ANSWER_TEXT_CATEGORY,
                                 verbose_name="Категория ответа")
 
     class Meta:
@@ -28,7 +47,7 @@ class Answer(models.Model):
     
     def __str__(self):
         try:
-            if self.category == ANSWER_CATEGORIES[0][0]:
+            if self.category == ANSWER_TEXT_CATEGORY:
                 return TextAnswer.objects.get(pk=self.pk).text[:16]
             else:
                 return PhotoAnswer.objects.get(pk=self.pk).title[:16]
@@ -65,7 +84,7 @@ class BaseElementQuestion(models.Model):
     text = models.CharField(max_length=BASE_ELEMENT_QUESTION_TEXT_MAX_LENGTH, verbose_name="Текст вопроса")
     category = models.CharField(max_length=max(len(category[0]) for category in BASE_ELEMENT_QUESTION_CATEGORIES),
                                 choices=BASE_ELEMENT_QUESTION_CATEGORIES,
-                                default=BASE_ELEMENT_QUESTION_CATEGORIES[0][0],
+                                default=BASE_ELEMENT_QUESTION_TEXT_CATEGORY,
                                 verbose_name="Категория вопроса")
 
     class Meta:
@@ -96,7 +115,7 @@ class BaseQuestion(models.Model):
     cost = models.PositiveIntegerField(default=0, verbose_name="Цена")
     category = models.CharField(max_length=max(len(element[0]) for element in BASE_QUESTION_CATEGORIES),
                                 choices=BASE_QUESTION_CATEGORIES,
-                                default=BASE_QUESTION_CATEGORIES[0][0],
+                                default=BASE_QUESTION_TEXT_CATEGORY,
                                 verbose_name="Тип вопроса")
     slug = models.SlugField(max_length=BASE_QUESTION_SLUG_MAX_LENGTH, unique=True, db_index=True, verbose_name="URL")
 
@@ -106,6 +125,18 @@ class BaseQuestion(models.Model):
 
     def __str__(self):
         return self.question.text[:16]
+
+    def check_answer(self, cleaned_data):
+        if self.correct_answer.category == ANSWER_TEXT_CATEGORY:
+            correct_answer = TextAnswer.objects.get(pk=self.correct_answer.pk).text
+        elif self.correct_answer.category == ANSWER_PHOTO_CATEGORY:
+            correct_answer = PhotoAnswer.objects.get(pk=self.correct_answer.pk)
+        else:
+            raise TypeError
+        if correct_answer == cleaned_data[self.question.text]:
+            return True
+        else:
+            return False
 
 
 class ChoiceQuestion(BaseQuestion):
@@ -132,7 +163,7 @@ class Task(models.Model):
     photo = models.ImageField(upload_to="quizzes/tasks/%Y/%m/%d", null=True, blank=True, verbose_name="Фото задания")
     complexity = models.CharField(max_length=max(len(element[0]) for element in TASK_CATEGORIES ),
                                   choices=TASK_CATEGORIES,
-                                  default=TASK_CATEGORIES[0][0],
+                                  default=TASK_EASY_CATEGORY,
                                   verbose_name="Сложность")
     owner = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="Владелец")
     questions = models.ManyToManyField(BaseQuestion, verbose_name="Вопросы задания")

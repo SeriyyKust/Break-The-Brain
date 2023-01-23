@@ -32,8 +32,8 @@ class PhotoElementQuestionAdmin(admin.ModelAdmin):
 
 
 class BaseQuestionAdmin(admin.ModelAdmin):
-    list_display = ("id", "question", "correct_answer", "date", "cost", "slug")
-    list_editable = ("question", "correct_answer", "cost", "slug")
+    list_display = ("id", "question", "correct_answer", "date", "cost", "category", "slug")
+    list_editable = ("question", "correct_answer", "cost", "category", "slug")
     list_display_links = ("id", )
     search_fields = ("id", )
 

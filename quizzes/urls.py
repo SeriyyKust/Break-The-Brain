@@ -1,12 +1,13 @@
 from django.urls import path
 from breakthebrain import settings
 from django.conf.urls.static import static
-from .views import QuizzesListView, QuizzesDetailView
+from .views import QuizzesListView, QuizzesDetailView, QuizzesPassingTask
 
 
 urlpatterns = [
-    path('all_quizzes/', QuizzesListView.as_view(), name="all_quizzes"),
-    path('detail_quizzes/<slug:task_slug>/', QuizzesDetailView.as_view(), name="detail_quizzes"),
+    path('all-quizzes/', QuizzesListView.as_view(), name="all_quizzes"),
+    path('detail-quizzes/<slug:task_slug>/', QuizzesDetailView.as_view(), name="detail_quizzes"),
+    path('passing-quizzes/<slug:task_slug>/', QuizzesPassingTask.as_view(), name="passing_task"),
 ]
 
 
