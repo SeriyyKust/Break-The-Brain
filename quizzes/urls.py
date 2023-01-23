@@ -7,7 +7,6 @@ from .views import QuizzesListView, QuizzesDetailView
 urlpatterns = [
     path('all_quizzes/', QuizzesListView.as_view(), name="all_quizzes"),
     path('detail_quizzes/<slug:task_slug>/', QuizzesDetailView.as_view(), name="detail_quizzes"),
-
 ]
 
 

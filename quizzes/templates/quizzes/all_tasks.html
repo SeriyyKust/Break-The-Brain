@@ -4,7 +4,7 @@
     {% for task in tasks %}
         <article>
             <div>
-                {{ task.title }}
+                <a href="{{ task.get_absolute_url }}">{{ task.title }}</a>
             </div>
             {% if task.photo %}
                 <div>
@@ -16,6 +16,9 @@
             </div>
             <div>
                 {{ task.owner }}
+            </div>
+            <div>
+                {{ task.points }}
             </div>
         </article>
     {% endfor %}
