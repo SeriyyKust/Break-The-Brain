@@ -1,24 +1,30 @@
 {% extends 'profiles/base.html' %}
-
+{% load static %}
 {% block content %}
-    <form method="post" action="{% url 'passing_task' task_slug %}">
-        {% csrf_token %}
-        {% for question in questions_forms %}
-            <div>
-                <div>
-                    {{ question.form.label_tag }}
-                </div>
-                {% if question.photo_label %}
+    <section class="s-content s-content--narrow">
+        <div class="row">
+            <div class="col-full s-content__main">
+                 <form method="post" action="{% url 'passing_task' task_slug %}">
+                    {% csrf_token %}
+                    {% for question in questions_forms %}
                     <div>
-                        <img src="{{ question.photo_label.url }}">
+                        <div>
+                            {{ question.form.label_tag }}
+                        </div>
+                        {% if question.photo_label %}
+                            <div>
+                                <img src="{{ question.photo_label.url }}">
+                            </div>
+                        {% endif %}
+                        <div>
+                            {{ question.form }}
+                        </div>
                     </div>
-                {% endif %}
-                <div>
-                    {{ question.form }}
-                </div>
+                    <hr>
+                    {% endfor %}
+                    <input type="submit" value="Ответить">
+                </form>
             </div>
-            <hr>
-        {% endfor %}
-        <input type="submit" value="Ответить">
-    </form>
+        </div>
+    </section>
 {% endblock content %}

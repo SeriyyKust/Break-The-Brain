@@ -142,6 +142,19 @@ p.lead {
    color: #000000;
 }
 
+p.my_button {
+   font-family: "metropolis-medium", sans-serif;
+   background-color: #2a2a2a;
+   border: 5px solid #2a2a2a;
+   padding: 5px;
+   width: 10%;
+   border-radius: 10px;
+   font-size: 2rem;
+   line-height: 1.8;
+   margin-bottom: 3.6rem;
+   color: #000000;
+}
+
 @media only screen and (max-width:800px) {
    p.lead {
       font-size: 1.8rem;
@@ -3554,6 +3567,39 @@ footer h4::after {
    margin: 3rem 0 3rem -6rem;
 }
 
+.s-content__main form input[type=text]{
+  background-color: #f6f6f6;
+  border: 2px solid #2a2a2a;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 26px;
+  margin: 5px;
+  width: 85%;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.s-content__main form input[type=radio]{
+}
+
+.s-content__main form img{
+    height: 160px;
+    weight: 160px;
+}
+
+.s-content__main form input[type=submit]{
+    background-color: #2a2a2a;
+    margin: 5px;
+    margin-top: 0px;
+}
 
 /* -------------------------------------------------------------------
  * ## content media

@@ -1,25 +1,43 @@
 {% extends 'profiles/base.html' %}
-
+{% load static %}
 {% block content %}
-    {% for task in tasks %}
-        <article>
-            <div>
-                <a href="{{ task.get_absolute_url }}">{{ task.title }}</a>
-            </div>
-            {% if task.photo %}
-                <div>
-                    <p><img src="{{ task.photo.url }}"></p>
-                </div>
-            {% endif %}
-            <div>
-                {{ task.complexity }}
-            </div>
-            <div>
-                {{ task.owner }}
-            </div>
-            <div>
-                {{ task.points }}
-            </div>
-        </article>
-    {% endfor %}
+    <div class="row masonry-wrap">
+        <div class="masonry">
+            <div class="grid-sizer"></div>
+            {% for task in tasks %}
+                <article class="masonry__brick entry format-standard">
+                    {% if task.photo %}
+                        <div class="entry__thumb">
+                            <a href="{{ task.get_absolute_url }}" class="entry__thumb-link">
+                                <img src="{{ task.photo.url }}">
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="entry__text">
+                        <div class="entry__header">
+                            <div class="entry__date">
+                                <a href="{{ task.get_absolute_url }}">
+                                    {{ task.date }}
+                                </a>
+                            </div>
+
+                            <h1 class="entry__title">
+                                <a href="{{ task.get_absolute_url }}">
+                                    {{ task.title }}
+                                </a>
+                            </h1>
+                        </div>
+
+                        <div class="entry__meta">
+                            <span class="entry__meta-links">
+                                <p>Сложность: {{ task.complexity }}</p>
+                                <p>Максимальное количество очков: {{ task.points }}</p>
+                                <a href="#">Владелец: {{ task.owner }}</a>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}

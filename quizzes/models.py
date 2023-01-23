@@ -111,7 +111,6 @@ class PhotoElementQuestion(BaseElementQuestion):
 class BaseQuestion(models.Model):
     question = models.ForeignKey(BaseElementQuestion, on_delete=models.PROTECT, verbose_name="Вопрос")
     correct_answer = models.ForeignKey(Answer, on_delete=models.PROTECT, verbose_name="Правильный ответ")
-    date = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     cost = models.PositiveIntegerField(default=0, verbose_name="Цена")
     category = models.CharField(max_length=max(len(element[0]) for element in BASE_QUESTION_CATEGORIES),
                                 choices=BASE_QUESTION_CATEGORIES,
@@ -167,6 +166,7 @@ class Task(models.Model):
                                   verbose_name="Сложность")
     owner = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="Владелец")
     questions = models.ManyToManyField(BaseQuestion, verbose_name="Вопросы задания")
+    date = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     slug = models.SlugField(max_length=64, unique=True, db_index=True, verbose_name="URL")
 
     class Meta:

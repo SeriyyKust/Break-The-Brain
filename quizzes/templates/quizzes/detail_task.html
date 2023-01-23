@@ -1,24 +1,30 @@
 {% extends 'profiles/base.html' %}
-
+{% load static %}
 {% block content %}
-    <div>
-        {{ task.title }}
-    </div>
-        {% if task.photo %}
-            <div>
-                <p><img src="{{ task.photo.url }}"></p>
+    <section class="s-content--narrow s-content--no-padding-bottom">
+        <div class="row format-gallery">
+            <div class="s-content__header col-full">
+                <h1 class="s-content__header-title">
+                    {{ task.title }}
+                </h1>
             </div>
-        {% endif %}
-    <div>
-        {{ task.complexity }}
-    </div>
-    <div>
-        {{ task.owner }}
-    </div>
-    <div>
-        {{ task.points }}
-    </div>
-    <div>
-        <a href="{% url 'passing_task' task.slug%}">Решать!</a>
-    </div>
+
+            <div class="s-content__media col-full">
+                <div class="s-content__slider slider">
+                    {% if task.photo %}
+                        <img src="{{ task.photo.url }}">
+                    {% else %}
+                        <img src="{% static 'profiles/images/anonym.jpg' %}">
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-full s-content__main">
+                <p class="lead">Сложность: {{ task.complexity }}</p>
+                <p class="lead">Максимальное количество очков: {{ task.points }}</p>
+                <p class="lead">Владелец: {{ task.owner }}</p>
+                <p class="my_button"><a href="{% url 'passing_task' task.slug%}">Решить!</a></p>
+            </div>
+        </div>
+    </section>
 {% endblock content %}
