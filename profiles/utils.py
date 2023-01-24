@@ -32,3 +32,10 @@ def get_or_none(model, *args, **kwargs):
         return model.objects.get(*args, **kwargs)
     except model.DoesNotExist:
         return None
+
+
+def get_http_error_string(info):
+    print(f"####################################################"
+          f"\nError!!!\n{info}\n"
+          f"####################################################")
+    return f"<p><h1>Sorry.</h1></p><p><h1>There was a problem.</h1></p>"

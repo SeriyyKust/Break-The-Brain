@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
@@ -7,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views import View
 from .forms import RegistrationUserForm, RegistrationProfileForm, LoginUserForm
-from .utils import DataMixin
+from .utils import DataMixin, get_http_error_string, get_or_none
 
 
 class ProfilesListView(DataMixin, ListView):
@@ -55,7 +56,10 @@ class RegistrationProfilesView(DataMixin, View):
         profile_form = RegistrationProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            user = User.objects.get(username=user_form.cleaned_data['username'])
+            user = get_or_none(username=user_form.cleaned_data['username'])
+            if user is None:
+                return HttpResponse(get_http_error_string(f"Add Profile Info: There isn't User with username "
+                                                          f"'{user_form.cleaned_data['username']}'"))
             profile_form = RegistrationProfileForm(request.POST, instance=user.profile)
             profile_form.save()
             return redirect("login_profiles")
