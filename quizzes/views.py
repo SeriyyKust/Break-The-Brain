@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 from django.shortcuts import render, reverse, redirect
-from profiles.utils import DataMixin, get_or_none, get_http_error_string
+from profiles.utils import DataMixin, get_or_none, get_http_error_string, PointManager
 from .models import Task
 from .utils import FormManagerTask
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -51,5 +51,5 @@ class QuizzesPassingTask(LoginRequiredMixin, DataMixin, View):
         if task is None:
             return HttpResponse(get_http_error_string(f"Check Form: There isn't task with slug '{task_slug}'"))
         count_point = FormManagerTask.check_forms_with_answers(task=task, answer_dict=request.POST)
-        print(count_point)
+        PointManager.plus_points(request.user, count_point)
         return redirect(reverse('all_quizzes'))

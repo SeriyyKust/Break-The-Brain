@@ -1,5 +1,5 @@
 menu = [
-    {"title": "Моя страница", "url_name": "all_profiles"},
+    {"title": "Моя страница", "url_name": "my_page"},
     {"title": "Пользователи", "url_name": "all_profiles"},
     {"title": "Тесты", "url_name": "all_quizzes"},
 ]
@@ -39,3 +39,46 @@ def get_http_error_string(info):
           f"\nError!!!\n{info}\n"
           f"####################################################")
     return f"<p><h1>Sorry.</h1></p><p><h1>There was a problem.</h1></p>"
+
+
+class PointManager:
+    @staticmethod
+    def plus_points(user, number_points):
+        """
+        Adds points to the User
+        :param user:
+        :param number_points:
+        :return: number of points after add
+        """
+        user.point.number_points += number_points
+        user.save()
+        return user.point.number_points
+
+    @staticmethod
+    def check_enough_points(user, number_points):
+        """
+        Checks if the User has enough points
+        :param user:
+        :param number_points:
+        :return: True or False
+        """
+        if number_points > user.point.number_points:
+            return False
+        else:
+            user.point.number_points -= number_points
+            return True
+
+    @staticmethod
+    def minus_points(user, number_points):
+        """
+        Takes away points from the User
+        :param user:
+        :param number_points:
+        :return: number of points after take away
+        """
+        if number_points > user.point.number_points:
+            raise ValueError(f"The User has less points than {number_points}")
+        else:
+            user.point.number_points -= number_points
+            user.save()
+            return user.point.number_points

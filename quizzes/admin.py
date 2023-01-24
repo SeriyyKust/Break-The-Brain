@@ -51,7 +51,7 @@ class TaskAdmin(admin.ModelAdmin):
     list_editable = ("photo", "complexity", "owner", "slug")
 
     def questions_task(self, obj):
-        return "; ".join([question for question in obj.questions.all()])
+        return " ||\n".join([question.question.text for question in obj.questions.all()])
 
 
 admin.site.register(Answer, AnswerAdmin)
