@@ -39,6 +39,20 @@ class ProfilesDetailView(LoginRequiredMixin, DataMixin, DetailView):
         return context | self.get_user_context()
 
 
+class ProfilesMyPage(LoginRequiredMixin, DataMixin, ListView):
+    model = User
+    template_name = "profiles/my_page_profiles.html"
+    context_object_name = "user"
+
+    def get_queryset(self):
+        return User.objects.get(pk=self.request.user.pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["title"] = context["user"]
+        return context | self.get_user_context()
+
+
 class RegistrationProfilesView(DataMixin, View):
     def get(self, request):
         user_form = RegistrationUserForm()
