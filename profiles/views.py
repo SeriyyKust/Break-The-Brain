@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views import View
@@ -13,6 +14,7 @@ class ProfilesListView(DataMixin, ListView):
     model = User
     template_name = "profiles/all_profiles.html"
     context_object_name = "users"
+    login_url = reverse_lazy("login_profiles")
 
     def get_queryset(self):
         return User.objects.all().select_related('profile', 'point')
@@ -23,11 +25,12 @@ class ProfilesListView(DataMixin, ListView):
         return context | self.get_user_context()
 
 
-class ProfilesDetailView(DataMixin, DetailView):
+class ProfilesDetailView(LoginRequiredMixin, DataMixin, DetailView):
     model = User
     template_name = "profiles/detail_profiles.html"
     pk_url_kwarg = "user_id"
     context_object_name = "user"
+    login_url = reverse_lazy("login_profiles")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

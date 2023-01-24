@@ -32,7 +32,7 @@
                     {% block login %}
                     <ul class="header__login">
                         {% for l in login %}
-                            <li><a href="{% url l.url_name %}">{{ l.title }}</a> </li>
+                            <li><a href="{% url l.url_name %}">{{ l.title }} </a> </li>
                         {% endfor %}
                     </ul>
                     {% endblock login %}

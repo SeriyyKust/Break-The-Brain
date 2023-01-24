@@ -4,11 +4,8 @@ from django.shortcuts import render, reverse, redirect
 from profiles.utils import DataMixin
 from .models import Task
 from .utils import FormManagerTask
-
-from .models import Task, PhotoElementQuestion
-from .models import BASE_ELEMENT_QUESTION_PHOTO_CATEGORY, BASE_QUESTION_TEXT_CATEGORY, BASE_QUESTION_CHOICE_CATEGORY, \
-    ANSWER_TEXT_CATEGORY, ANSWER_PHOTO_CATEGORY
-from .forms import TextAnswerForm, ChoiceAnswerForm, ChoiceWithPhotoAnswerForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 class QuizzesListView(DataMixin, ListView):
@@ -22,11 +19,12 @@ class QuizzesListView(DataMixin, ListView):
         return context | self.get_user_context()
 
 
-class QuizzesDetailView(DataMixin, DetailView):
+class QuizzesDetailView(LoginRequiredMixin, DataMixin, DetailView):
     model = Task
     template_name = "quizzes/detail_task.html"
     context_object_name = "task"
     slug_url_kwarg = "task_slug"
+    login_url = reverse_lazy("login_profiles")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -34,7 +32,9 @@ class QuizzesDetailView(DataMixin, DetailView):
         return context | self.get_user_context()
 
 
-class QuizzesPassingTask(DataMixin, View):
+class QuizzesPassingTask(LoginRequiredMixin, DataMixin, View):
+    login_url = reverse_lazy("login_profiles")
+
     def get(self, request, task_slug):
         task = Task.objects.get(slug=task_slug)
         context = {"title": task.title,

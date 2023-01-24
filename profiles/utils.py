@@ -1,7 +1,7 @@
 menu = [
     {"title": "Моя страница", "url_name": "all_profiles"},
     {"title": "Пользователи", "url_name": "all_profiles"},
-    {"title": "Тесты", "url_name": "all_profiles"},
+    {"title": "Тесты", "url_name": "all_quizzes"},
 ]
 
 login = [
@@ -14,8 +14,16 @@ login = [
 class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs
-        context["menu"] = menu
-        context["login"] = login
+        context_login = login.copy()
+        context_menu = menu.copy()
+        if self.request.user.is_authenticated:
+            context_login.pop(0)
+            context_login.pop(0)
+        else:
+            context_menu.pop(0)
+            context_login.pop(2)
+        context["login"] = context_login
+        context["menu"] = context_menu
         return context
 
 

@@ -4,9 +4,13 @@
         <div id="formContent">
 
             <!-- Tabs Titles -->
-            <h2 class="active"> Sign In </h2>
-            <h2 class="inactive underlineHover">Sign Up </h2>
-
+            {% for l in login %}
+                {% if l.title == "Регистрация" %}
+                    <h2 class="active"><a href="{% url l.url_name %}" > {{ l.title }} </a></h2>
+                {% else %}
+                    <h2 class="inactive"><a href="{% url l.url_name %}" > {{ l.title }} </a></h2>
+                {% endif %}
+            {% endfor %}
 
             <form method="post">
                 {% csrf_token %}
