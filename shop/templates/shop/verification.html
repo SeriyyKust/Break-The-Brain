@@ -1,0 +1,14 @@
+{% extends 'profiles/base.html' %}
+{% load static %}
+{% block content %}
+
+    {% if info_errors %}
+        <h2>{{ info_errors }}</h2>
+    {% endif %}
+
+    <p>{{ info_base }}</p>
+
+    <p><a href="{% url 'categories_shop' %}"><button type="submit">Вернуться в магазин</button></a></p>
+    <p><a href="{% url 'my_page' %}"><button type="submit">Моя страница</button></a></p>
+
+{% endblock content %}

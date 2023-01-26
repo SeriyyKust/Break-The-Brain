@@ -1,0 +1,12 @@
+{% extends 'profiles/base.html' %}
+{% load static %}
+{% block content %}
+    {% if info_errors %}
+        <h1>{{ info_errors }}</h1>
+    {% endif %}
+    {% for category in categories %}
+        <p>{{ category.get_verbose_name }} - <a href="{{ category.get_absolute_url }}">Перейти</a></p>
+
+    {% endfor %}
+
+{% endblock content %}

@@ -82,3 +82,21 @@ class PointManager:
             user.point.number_points -= number_points
             user.save()
             return user.point.number_points
+
+
+class VisualManager:
+    @staticmethod
+    def change(user, product):
+        VisualManager.__change_visual(user, product)
+        user.save()
+        return user
+
+    @staticmethod
+    def __change_visual(user, product):
+        if type(user.visual.base_background_color) == type(product):
+            user.visual.base_background_color = product
+        elif type(user.visual.text_background_color) == type(product):
+            user.visual.text_background_color = product
+        elif type(user.visual.text_title_font) == type(product):
+            user.visual.text_title_font = product
+        return user

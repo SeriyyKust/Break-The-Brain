@@ -1,0 +1,10 @@
+{% extends 'profiles/base.html' %}
+{% load static %}
+{% block content %}
+
+    {% for product in goods %}
+        <p>{{ product }} - <a href="{% url 'verification_shop'%}?model={{ product.get_type }}&id_product={{ product.pk }}"><button type="submit">Купить</button> </a></p>
+
+    {% endfor %}
+
+{% endblock content %}

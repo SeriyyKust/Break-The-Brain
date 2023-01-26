@@ -54,7 +54,7 @@ def save_user_point(sender, instance, **kwargs):
 class Visual(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     base_background_color = models.ForeignKey(BaseBackgroundColor, on_delete=models.PROTECT, null=True, blank=True,
-                                              verbose_name="Цвет основного фона", related_name="base_background_color")
+                                              verbose_name="Цвет основного фона")
     text_background_color = models.ForeignKey(TextBackgroundColor, on_delete=models.PROTECT, null=True, blank=True,
                                               verbose_name="Цвет фона текста", related_name="text_background_color")
     text_title_font = models.ForeignKey(TextTitleFont, on_delete=models.PROTECT, null=True, blank=True,

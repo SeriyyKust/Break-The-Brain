@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 COLOR_WHITE = "profiles-background-color__white"
@@ -46,10 +47,22 @@ class BaseBackgroundColor(models.Model):
         verbose_name_plural = "Цвета основного фона"
 
     def __str__(self):
-        return self.title.split('__')[1]
+        return " ".join(self.title.split('__')[1].split('_'))
 
     def full_str(self):
         return self.title
+
+    @staticmethod
+    def get_verbose_name():
+        return "Цвет основного фона"
+
+    @staticmethod
+    def get_absolute_url():
+        return reverse("base_background_color_shop")
+
+    @staticmethod
+    def get_type():
+        return BaseBackgroundColor
 
 
 class TextBackgroundColor(models.Model):
@@ -66,10 +79,22 @@ class TextBackgroundColor(models.Model):
         verbose_name_plural = "Цвета фона текста"
 
     def __str__(self):
-        return self.title.split('__')[1]
+        return " ".join(self.title.split('__')[1].split('_'))
 
     def full_str(self):
         return self.title
+
+    @staticmethod
+    def get_verbose_name():
+        return "Цвет фона текста"
+
+    @staticmethod
+    def get_absolute_url():
+        return reverse("text_background_color_shop")
+
+    @staticmethod
+    def get_type():
+        return TextBackgroundColor
 
 
 class TextTitleFont(models.Model):
@@ -86,7 +111,22 @@ class TextTitleFont(models.Model):
         verbose_name_plural = "Шрифты никнеймов"
 
     def __str__(self):
-        return self.title.split('__')[1]
+        return " ".join(self.title.split('__')[1].split('_'))
 
     def full_str(self):
         return self.title
+
+    @staticmethod
+    def get_verbose_name():
+        return "Шрифт никнейма"
+
+    @staticmethod
+    def get_absolute_url():
+        return reverse("text_title_font_shop")
+
+    @staticmethod
+    def get_type():
+        return TextTitleFont
+
+
+SHOP_CATEGORIES = (BaseBackgroundColor, TextBackgroundColor, TextTitleFont)
