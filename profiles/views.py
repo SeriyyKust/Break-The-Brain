@@ -68,15 +68,16 @@ class RegistrationProfilesView(DataMixin, View):
     def post(self, request):
         user_form = RegistrationUserForm(request.POST)
         profile_form = RegistrationProfileForm(request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid():
             user_form.save()
             user = get_or_none(User, username=user_form.cleaned_data['username'])
             if user is None:
                 return HttpResponse(get_http_error_string(f"Add Profile Info: There isn't User with username "
                                                           f"'{user_form.cleaned_data['username']}'"))
-            profile_form = RegistrationProfileForm(request.POST, instance=user.profile)
-            profile_form.save()
-            return redirect("login_profiles")
+            profile_form = RegistrationProfileForm(request.POST, request.FILES, instance=user.profile)
+            if profile_form.is_valid():
+                profile_form.save()
+                return redirect("login_profiles")
         context = {
             "title": "Регистрация",
             "user_form": user_form,

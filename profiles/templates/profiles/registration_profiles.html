@@ -12,7 +12,7 @@
                 {% endif %}
             {% endfor %}
 
-            <form method="post">
+            <form method="post" action="{% url 'registration_profiles' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                     <div>{{ user_form.non_field_errors }}</div>
                     <div>{{ profile_form.non_field_errors }}</div>

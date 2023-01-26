@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from shop.models import BaseBackgroundColor, TextBackgroundColor, TextTitleFont
+from django.urls import reverse
 
 
 def get_name_photo_file(instance, filename):
@@ -18,6 +19,9 @@ class Profile(models.Model):
     class Meta:
         verbose_name = "Информация о пользователе"
         verbose_name_plural = "Информация о пользователях"
+
+    def get_absolute_url(self):
+        return reverse('detail_profiles', kwargs={'user_id': self.user.pk})
 
 
 @receiver(post_save, sender=User)

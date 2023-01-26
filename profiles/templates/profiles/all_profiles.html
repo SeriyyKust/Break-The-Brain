@@ -7,7 +7,7 @@
                     {% for user in users %}
                             <article class="profiles__brick entry format-standard {{ user.visual.base_background_color.full_str }}">
                                 <div class="entry__thumb">
-                                    <a href="#" class="entry__thumb-link">
+                                    <a href="{{ user.profile.get_absolute_url }}" class="entry__thumb-link">
                                         {% if user.profile.photo %}
                                             <p><img src="{{ user.profile.photo.url }}"></p>
                                         {% else %}
@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="entry__text {{ user.visual.text_background_color.full_str }}">
                                     <div class="entry__header">
-                                        <h1 class="entry__title {{ user.visual.text_title_font.full_str }}"><a href="#">{{ user.username }}</a></h1>
+                                        <h1 class="entry__title {{ user.visual.text_title_font.full_str }}"><a href="{{ user.profile.get_absolute_url }}">{{ user.username }}</a></h1>
                                     </div>
                                     {% if user.profile.quote %}
                                         <div class="entry__excerpt">

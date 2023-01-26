@@ -22,7 +22,7 @@ class RegistrationProfileForm(ModelForm):
         fields = ('date_birth', 'quote', 'photo')
 
     def __init__(self, *args, **kwargs):
-        super(RegistrationProfileForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['quote'].required = False
         self.fields['photo'].required = False
 
