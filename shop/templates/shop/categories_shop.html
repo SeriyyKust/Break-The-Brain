@@ -1,12 +1,25 @@
 {% extends 'profiles/base.html' %}
 {% load static %}
 {% block content %}
-    {% if info_errors %}
-        <h1>{{ info_errors }}</h1>
-    {% endif %}
-    {% for category in categories %}
-        <p>{{ category.get_verbose_name }} - <a href="{{ category.get_absolute_url }}">Перейти</a></p>
+    <div class="row masonry-wrap">
+        <div class="masonry">
+            <div class="grid-sizer"></div>
 
-    {% endfor %}
+                {% for category in categories %}
+                    <article class="masonry__brick entry format-standard">
+                        <div class="entry__text">
+                            <div class="entry__header">
+                                <div class="entry__title">
+                                    {{ category.get_verbose_name }}
+                                </div>
+                            </div>
 
+                            <div class="entry__meta">
+                                <a href="{{ category.get_absolute_url }}"><button type="submit">Перейти</button></a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+        </div>
+    </div>
 {% endblock content %}

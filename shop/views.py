@@ -1,6 +1,7 @@
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.base import View
+from django.contrib.auth.models import User
 from profiles.utils import DataMixin, get_or_none, PointManager, VisualManager
 from .models import BaseBackgroundColor, TextBackgroundColor, TextTitleFont, SHOP_CATEGORIES
 from .utils import get_model_or_none
@@ -19,7 +20,7 @@ class ShopCategoriesView(DataMixin, View):
 
 class ShopBaseBackgroundColorView(DataMixin, ListView):
     model = BaseBackgroundColor
-    template_name = "shop/general_shop.html"
+    template_name = "shop/base_background_color_shop.html"
     context_object_name = "goods"
 
     def get_context_data(self, **kwargs):
@@ -30,7 +31,7 @@ class ShopBaseBackgroundColorView(DataMixin, ListView):
 
 class ShopTextBackgroundColorView(DataMixin, ListView):
     model = TextBackgroundColor
-    template_name = "shop/general_shop.html"
+    template_name = "shop/text_background_color_shop.html"
     context_object_name = "goods"
 
     def get_context_data(self, **kwargs):
@@ -41,7 +42,7 @@ class ShopTextBackgroundColorView(DataMixin, ListView):
 
 class ShopTextTitleFontView(DataMixin, ListView):
     model = TextTitleFont
-    template_name = "shop/general_shop.html"
+    template_name = "shop/text_title_font_shop.html"
     context_object_name = "goods"
 
     def get_context_data(self, **kwargs):

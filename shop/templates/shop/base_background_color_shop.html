@@ -1,0 +1,36 @@
+{% extends 'profiles/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="row masonry-wrap">
+        <div class="masonry">
+            <div class="grid-sizer"></div>
+            {% for product in goods %}
+                <article class="masonry__brick entry format-standard">
+                    <div class="entry__thumb {{product.full_str}}">
+                        <a href="{% url 'verification_shop'%}?model={{ product.get_type }}&id_product={{ product.pk }}" class="entry__thumb-link">
+                            <h1 class="entry__title">
+                                <p>#</p>
+                                <p># {{ product }}</p>
+                                <p>#</p>
+                            </h1>
+                            <hr>
+                            <p class="lead">Ваш Баланс: {{user.point.number_points}}</p>
+                        </a>
+                    </div>
+
+                    <div class="entry__text">
+                        <div class="entry__header">
+                            <div class="entry__date">
+                                Цена: {{ product.price }}
+                            </div>
+                        </div>
+
+                        <div class="entry__meta">
+                                <a href="{% url 'verification_shop'%}?model={{ product.get_type }}&id_product={{ product.pk }}"><button type="submit">Купить</button> </a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

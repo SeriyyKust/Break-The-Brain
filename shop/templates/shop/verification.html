@@ -2,13 +2,24 @@
 {% load static %}
 {% block content %}
 
-    {% if info_errors %}
-        <h2>{{ info_errors }}</h2>
-    {% endif %}
+    <div class="row masonry-wrap">
+        <div class="masonry">
+            <div class="grid-sizer"></div>
 
-    <p>{{ info_base }}</p>
+                {% if info_errors %}
+                    <h1>{{ info_errors }}</h1>
+                {% endif %}
 
-    <p><a href="{% url 'categories_shop' %}"><button type="submit">Вернуться в магазин</button></a></p>
-    <p><a href="{% url 'my_page' %}"><button type="submit">Моя страница</button></a></p>
+            <h1>{{ info_base }}</h1>
+
+                <article class="masonry__brick entry format-standard">
+                    <p><a href="{% url 'categories_shop' %}"><button type="submit">Вернуться в магазин</button></a></p>
+                </article>
+                <article class="masonry__brick entry format-standard">
+                    <p><a href="{% url 'my_page' %}"><button type="submit">Моя страница</button></a></p>
+                </article>
+            </h1>
+        </div>
+    </div>
 
 {% endblock content %}
