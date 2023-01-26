@@ -14,6 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'profiles.apps.ProfilesConfig',
     'quizzes.apps.QuizzesConfig',
+    'shop.apps.ShopConfig',
 ]
 
 MIDDLEWARE = [

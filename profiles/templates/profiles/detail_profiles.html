@@ -1,25 +1,10 @@
 {% extends 'profiles/base.html' %}
 {% load static %}
 {% block content %}
-    <section class="s-content--narrow s-content--no-padding-bottom">
-        <div class="row format-gallery">
-            <div class="s-content__header col-full">
-                <h1 class="s-content__header-title">
-                    {{ user.username }}
-                </h1>
-
-                <ul class="s-content__header-meta">
-                    {% if user.first_name %}
-                        <li class="cat">{{ user.first_name }}</li>
-                    {% endif %}
-                    {% if user.last_name %}
-                        <li class="cat">{{ user.last_name }}</li>
-                    {% endif %}
-                </ul>
-            </div>
-
-            <div class="s-content__media col-full">
-                <div class="s-content__slider slider">
+    <section class="profiles-detail--narrow profiles-detail--no-padding-bottom profiles-detail--row {{ user.visual.base_background_color.full_str }}">
+        <div class="row">
+            <div class="profiles-detail--block">
+                <div class="profiles-detail__media col-full">
                     {% if user.profile.photo %}
                         <img src="{{ user.profile.photo.url }}">
                     {% else %}
@@ -28,19 +13,36 @@
                 </div>
             </div>
 
-            <div class="col-full s-content__main">
-                {% if user.email %}
-                    <p class="lead">Email: {{ user.email }}</p>
-                {% endif %}
-                {% if user.profile.date_birth %}
-                    <p class="lead">Birthday: {{ user.profile.date_birth }}</p>
-                {% endif %}
-                {% if user.profile.quote %}
-                    <p class="lead">Цитата: </p>
-                    <blockquote><p>{{ user.profile.quote }}</p></blockquote>
-                {% endif %}
-                <hr>
-                <p class="lead">Баланс: {{user.point.number_points}}</p>
+            <div class="profiles-detail--block {{ user.visual.text_background_color.full_str }}">
+                <div class="profiles-detail__header col-full">
+                    <h1 class="profiles-detail__header-title {{ user.visual.text_title_font.full_str }}">
+                        {{ user.username }}
+                    </h1>
+
+                    <ul class="profiles-detail__header-meta">
+                        {% if user.first_name %}
+                            <li class="cat">{{ user.first_name }}</li>
+                        {% endif %}
+                        {% if user.last_name %}
+                            <li class="cat">{{ user.last_name }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="col-full profiles-detail__main">
+                    {% if user.email %}
+                        <p class="lead">Email: {{ user.email }}</p>
+                    {% endif %}
+                    {% if user.profile.date_birth %}
+                        <p class="lead">Birthday: {{ user.profile.date_birth }}</p>
+                    {% endif %}
+                    {% if user.profile.quote %}
+                        <p class="lead">Цитата: </p>
+                        <blockquote><p>{{ user.profile.quote }}</p></blockquote>
+                    {% endif %}
+                    <hr>
+                    <p class="lead">Баланс: {{user.point.number_points}}</p>
+                </div>
             </div>
         </div>
     </section>

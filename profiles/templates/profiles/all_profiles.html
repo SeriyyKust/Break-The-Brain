@@ -5,7 +5,7 @@
         <div class="profiles">
             <div class="grid-sizer"></div>
                     {% for user in users %}
-                            <article class="profiles__brick entry format-standard">
+                            <article class="profiles__brick entry format-standard {{ user.visual.base_background_color.full_str }}">
                                 <div class="entry__thumb">
                                     <a href="#" class="entry__thumb-link">
                                         {% if user.profile.photo %}
@@ -15,13 +15,15 @@
                                         {% endif %}
                                     </a>
                                 </div>
-                                <div class="entry__text">
+                                <div class="entry__text {{ user.visual.text_background_color.full_str }}">
                                     <div class="entry__header">
-                                        <h1 class="entry__title"><a href="#">{{ user.username }}</a></h1>
+                                        <h1 class="entry__title {{ user.visual.text_title_font.full_str }}"><a href="#">{{ user.username }}</a></h1>
                                     </div>
-                                    <div class="entry__excerpt">
-                                        <p>Цитата : {{user.profilequote}}</p>
-                                    </div>
+                                    {% if user.profile.quote %}
+                                        <div class="entry__excerpt">
+                                            <p>Цитата : {{user.profile.quote}}</p>
+                                        </div>
+                                    {% endif %}
                                     <hr>
                                     <div class="entry__meta">
                                         Баланс: {{user.point.number_points}}

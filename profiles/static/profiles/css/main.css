@@ -206,7 +206,7 @@ blockquote p {
    font-size: 2.1rem;
    line-height: 1.857;
    color: #000000;
-   margin-left: 5%;
+   margin-left: 10%;
 }
 
 blockquote cite {
@@ -4223,7 +4223,42 @@ footer h4::after {
 
 .profiles__brick {
    float: left;
-   padding: 0 20px;
+   padding: 20px 20px;
+   margin: 20px;
+   border-radius: 30px;
+
+   border: 2px solid #2a2a2a;
+   box-shadow: 10px 5px 5px #2a2a2a;;
+
+}
+
+/* -------------------------------------------------------------------
+ * SHOP
+ * ------------------------------------------------------------------- */
+
+.profiles-background-color__white{
+    background-color: white;
+}
+
+.profiles-background-color__scarlet{
+    background-color: #dea7b5;
+}
+
+.profiles-background-color__purple{
+    background-color: #a1a2de;
+}
+
+.profiles-background-color__white_grey{
+    background-color: #3b3b46;
+}
+
+
+.profiles-background-color__black_grey{
+    background-color: #1a1a20;
+}
+
+.profiles-background-color__height_grey{
+    background-color: #CCCCCC;
 }
 
 /* -------------------------------------------------------------------
@@ -4324,6 +4359,8 @@ footer h4::after {
    position: relative;
    overflow: hidden;
    height: 450px;
+   /*border: 5px solid #2a2a2a;*/
+   border-radius: 40px;
 }
 
 .profiles .entry__thumb-link img {
@@ -4331,7 +4368,7 @@ footer h4::after {
    -webkit-transition: all 0.3s ease-in-out;
    transition: all 0.3s ease-in-out;
    height: 450px;
-   width: 100%;
+   width: 450px;
 }
 
 .profiles .entry__thumb-link::before {
@@ -4396,8 +4433,10 @@ footer h4::after {
 }
 
 .profiles .entry__text {
+   margin-top: 5px;
    padding: 3rem 2.8rem 3.6rem;
-   background-color: #FFFFFF;
+   border-radius: 40px;
+
 }
 
 .profiles .entry__title {
@@ -4406,7 +4445,30 @@ footer h4::after {
    line-height: 1.375;
    margin-top: 0;
    margin-bottom: 2.1rem;
+   text-align: center;
 }
+
+.profiles-title__times {
+    font-family: Times;
+}
+
+.profiles-title__fantasy {
+    font-family: fantasy;
+}
+
+.profiles-title__arial {
+    font-family: Arial;
+}
+
+.profiles-title__monospace {
+    font-family: monospace;
+}
+
+.profiles-title__cursive {
+    font-family: cursive;
+}
+
+
 
 .profiles .entry__title a {
     text-decoration: none;
@@ -4419,6 +4481,8 @@ footer h4::after {
    font-weight: 800;
 }
 
+
+
 .profiles .entry__date {
    font-family: "metropolis-medium", sans-serif;
    font-size: 1.4rem;
@@ -4430,7 +4494,7 @@ footer h4::after {
    color: #858585;
 }
 
-.mprofiles .entry__excerpt {
+.profiles .entry__excerpt {
    font-size: 1.5rem;
    line-height: 1.8;
 }
@@ -4455,4 +4519,124 @@ footer h4::after {
 
 .profiles .entry__meta-links a:last-child::after {
    display: none;
+}
+
+
+
+/* ===================================================================
+ * # profiles-detail
+ *
+ * ------------------------------------------------------------------- */
+.profiles-detail {
+   background-color: #f2f2f2;
+   padding-top: 8.4rem;
+   padding-bottom: 7.2rem;
+}
+
+.profiles-detail--no-padding-bottom {
+   padding-bottom: 0;
+}
+
+.profiles-detail--narrow .row {
+   max-width: 75%;
+}
+
+.profiles-detail--block {
+    float: left;
+    width: 50%;
+    height: 700px;
+}
+
+
+.profiles-detail--row {
+    border-radius: 20px;
+}
+
+/* -------------------------------------------------------------------
+ * ## profiles-detail media
+ * ------------------------------------------------------------------- */
+.profiles-detail__media {
+   padding: 0;
+   margin-top: 4.8rem;
+}
+
+.profiles-detail__media img {
+   vertical-align: bottom;
+   border-radius: 20px;
+   max-height: 600px;
+   max-width: 400px;
+
+   border: 5px solid #2a2a2a;
+}
+
+.profiles-detail__media, .profiles-detail__post-thumb {
+   position: relative;
+}
+
+
+.profiles-detail__header {
+   padding-bottom: 3rem;
+   text-align: center;
+}
+
+.profiles-detail__header h1 {
+   font-size: 4.8rem;
+   line-height: 1.25;
+   margin-top: 0;
+   letter-spacing: -.15rem;
+}
+
+.profiles-detail__header .lead {
+   color: rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+/* -------------------------------------------------------------------
+ * ## profiles-detail main
+ * ------------------------------------------------------------------- */
+.profiles-detail__main {
+   margin-top: 6rem;
+   padding-left: 6rem;
+   padding-right: 6rem;
+}
+
+.profiles-detail__main img {
+   max-width: 960px;
+   margin: 3rem 0 3rem -6rem;
+}
+
+.profiles-detail__main form input[type=text]{
+  background-color: #f6f6f6;
+  border: 2px solid #2a2a2a;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 26px;
+  margin: 5px;
+  width: 85%;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.profiles-detail__main form input[type=radio]{
+}
+
+.profiles-detail__main form img{
+    height: 160px;
+    weight: 160px;
+}
+
+.profiles-detail__main form input[type=submit]{
+    background-color: #2a2a2a;
+    margin: 5px;
+    margin-top: 0px;
 }

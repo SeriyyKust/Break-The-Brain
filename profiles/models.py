@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from shop.models import BaseBackgroundColor, TextBackgroundColor, TextTitleFont
 
 
 def get_name_photo_file(instance, filename):
@@ -32,7 +33,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Point(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    number_points = models.PositiveIntegerField(blank=True, default=0)
+    number_points = models.PositiveIntegerField(blank=True, default=0, verbose_name="Количество очков")
 
     class Meta:
         verbose_name = "Баланс"
@@ -48,3 +49,28 @@ def create_user_point(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_point(sender, instance, **kwargs):
     instance.point.save()
+
+
+class Visual(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    base_background_color = models.ForeignKey(BaseBackgroundColor, on_delete=models.PROTECT, null=True, blank=True,
+                                              verbose_name="Цвет основного фона", related_name="base_background_color")
+    text_background_color = models.ForeignKey(TextBackgroundColor, on_delete=models.PROTECT, null=True, blank=True,
+                                              verbose_name="Цвет фона текста", related_name="text_background_color")
+    text_title_font = models.ForeignKey(TextTitleFont, on_delete=models.PROTECT, null=True, blank=True,
+                                        verbose_name="Шрифт никнейма")
+
+    class Meta:
+        verbose_name = "Отображение карточки пользователя"
+        verbose_name_plural = "Отображения карточек пользователя"
+
+
+@receiver(post_save, sender=User)
+def create_user_visual(sender, instance, created, **kwargs):
+    if created:
+        Visual.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_visual(sender, instance, **kwargs):
+    instance.visual.save()
