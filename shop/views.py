@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.base import View
-from django.contrib.auth.models import User
 from profiles.utils import DataMixin, get_or_none, PointManager, VisualManager
 from .models import BaseBackgroundColor, TextBackgroundColor, TextTitleFont, SHOP_CATEGORIES
 from .utils import get_model_or_none

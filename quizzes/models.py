@@ -116,7 +116,6 @@ class BaseQuestion(models.Model):
                                 choices=BASE_QUESTION_CATEGORIES,
                                 default=BASE_QUESTION_TEXT_CATEGORY,
                                 verbose_name="Тип вопроса")
-    slug = models.SlugField(max_length=BASE_QUESTION_SLUG_MAX_LENGTH, unique=True, db_index=True, verbose_name="URL")
 
     class Meta:
         verbose_name = "Стандартный Вопрос"
