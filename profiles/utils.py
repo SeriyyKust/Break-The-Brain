@@ -2,6 +2,7 @@ menu = [
     {"title": "Моя страница", "url_name": "my_page"},
     {"title": "Пользователи", "url_name": "all_profiles"},
     {"title": "Тесты", "url_name": "all_quizzes"},
+    {"title": "Магазин", "url_name": "categories_shop"},
 ]
 
 login = [
