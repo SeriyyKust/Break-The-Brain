@@ -4358,7 +4358,8 @@ footer h4::after {
 .profiles .entry__thumb {
    position: relative;
    overflow: hidden;
-   height: 450px;
+   height: 100%;
+   width: 100%;
    /*border: 5px solid #2a2a2a;*/
    border-radius: 40px;
 }

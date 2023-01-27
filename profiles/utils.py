@@ -1,3 +1,7 @@
+from shop.models import BASE_BACKGROUND_COLOR_DEFAULT, TEXT_BACKGROUND_COLOR_DEFAULT, TEXT_TITLE_FONT_DEFAULT, \
+    BaseBackgroundColor, TextBackgroundColor, TextTitleFont
+
+
 menu = [
     {"title": "Моя страница", "url_name": "my_page"},
     {"title": "Пользователи", "url_name": "all_profiles"},
@@ -66,7 +70,6 @@ class PointManager:
         if number_points > user.point.number_points:
             return False
         else:
-            user.point.number_points -= number_points
             return True
 
     @staticmethod
@@ -88,6 +91,7 @@ class PointManager:
 class VisualManager:
     @staticmethod
     def change(user, product):
+        VisualManager.__check_default_configure(user)
         VisualManager.__change_visual(user, product)
         user.save()
         return user
@@ -100,4 +104,14 @@ class VisualManager:
             user.visual.text_background_color = product
         elif type(user.visual.text_title_font) == type(product):
             user.visual.text_title_font = product
+        return user
+
+    @staticmethod
+    def __check_default_configure(user):
+        if user.visual.base_background_color is None:
+            user.visual.base_background_color = BaseBackgroundColor.objects.get(title=BASE_BACKGROUND_COLOR_DEFAULT)
+        if user.visual.text_background_color is None:
+            user.visual.text_background_color = TextBackgroundColor.objects.get(title=TEXT_BACKGROUND_COLOR_DEFAULT)
+        if user.visual.text_title_font is None:
+            user.visual.text_title_font = TextTitleFont.objects.get(title=TEXT_TITLE_FONT_DEFAULT)
         return user
